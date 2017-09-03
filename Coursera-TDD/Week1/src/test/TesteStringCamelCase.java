@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import src.main.StringCamelCase;
+import src.main.*;
 
 public class TesteStringCamelCase {
 
@@ -25,6 +25,20 @@ public class TesteStringCamelCase {
 		stringOutput = StringCamelCase.converter(stringInput);
 		
 		assertFalse(stringOutput.isEmpty());
+	}
+	
+	@Test(expected=StringInvalidaException.class)
+	public void stringComNumeroInvalida() {
+		stringInput = "10StringComNumero";
+		
+		stringOutput = StringCamelCase.converter(stringInput);
+	}
+	
+	@Test(expected=StringInvalidaException.class)
+	public void stringComEspecialInvalida() {
+		stringInput = "String_Com#caracter!?Especial";
+		
+		stringOutput = StringCamelCase.converter(stringInput);
 	}
 
 }
