@@ -1,17 +1,40 @@
 package src.main;
 
+import java.util.ArrayList;
+
 public class StringCamelCase {
 
-	public static String converter(String string)
-	{
-		if(!Character.isAlphabetic(string.charAt(0))) {
+	public static ArrayList<String> converter(String original)
+	{		
+		verificarInput(original);
+		
+		return separaPalavras(original);
+	}
+	
+	private static boolean verificarInput(final String original) {
+		if(!Character.isAlphabetic(original.charAt(0))) {
 			throw new StringInvalidaException("String de entrada invalida!");
 		}
-		else if(!string.matches("[a-zA-Z0-9 ]*")) {
+		else if(!original.matches("[a-zA-Z0-9 ]*")) {
 			throw new StringInvalidaException("String de entrada invalida!");
 		}
 		
-		return string;
+		return true;
+	}
+	
+	private static ArrayList<String> separaPalavras(String original){
+		ArrayList<String> palavrasSeparadas = new ArrayList<String>();
+		
+		for (String palavra : original.split("(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")) {
+		    if (palavra.matches("[A-Z]+")) {
+		        palavrasSeparadas.add(palavra);
+		    }
+		    else {
+		        palavrasSeparadas.add(palavra.toLowerCase());
+		    }
+	    }
+
+		return palavrasSeparadas;
 	}
 
 }
